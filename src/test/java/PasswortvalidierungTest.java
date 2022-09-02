@@ -16,6 +16,17 @@ public class PasswortvalidierungTest {
     }
 
     @Test
+    void checkPasswordTestForForbiddenPassword(){
+        // GIVEN
+        String password = "Password1";
+        // WHEN
+        String actual = Passwortvalidierung.checkPassword(password);
+
+        // THEN
+        assertEquals("Passwort verboten.", actual);
+    }
+
+    @Test
     void checkPasswordTestForLonger8NumberUpperLower(){
         // GIVEN
         String password = "paSsword1";
@@ -25,6 +36,17 @@ public class PasswortvalidierungTest {
         // THEN
         assertEquals("Passwort akzeptiert.", actual);
     }
+    @Test
+    void checkPasswordTestForLonger8NoAlphabets(){
+        // GIVEN
+        String password = "12345678";
+        // WHEN
+        String actual = Passwortvalidierung.checkPassword(password);
+
+        // THEN
+        assertEquals("Fehlende Groß- und Kleinschreibung im Passwort.", actual);
+    }
+
     @Test
     void checkPasswordTestForLonger8NumberNoUpperLower(){
         // GIVEN
@@ -118,5 +140,16 @@ public class PasswortvalidierungTest {
 
         // THEN
         assertEquals(false, actual);
+    }
+
+    @Test
+    void isPasswordBannedTest(){
+        // GIVEN
+        String password = "Password1";
+        // WHEN
+        boolean actual = Passwortvalidierung.isPasswordBanned(password);
+
+        // THEN
+        assertEquals(true, actual);
     }
 }

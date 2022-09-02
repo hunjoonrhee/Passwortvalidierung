@@ -1,28 +1,39 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Passwortvalidierung {
-//    public static void main(String[] args) {
-//        String password = "pass";
-//        getLength(password);
-//    }
+    public static void main(String[] args) {
+        System.out.println("Geben Sie ein Passwort ein:");
+        Scanner scanner = new Scanner(System.in);
+        String password = scanner.nextLine();
+        System.out.println(checkPassword(password));
+    }
     public static int getLength(String password){
         int length = password.length();
         return length;
     }
 
     public static String checkPassword(String password){
-        int length = getLength(password);
         String Message = null;
+        boolean isPasswordBanned = isPasswordBanned(password);
+        int length = getLength(password);
         boolean containsNumber = checkNumber(password);
         boolean containUpAndLow = checkUpperLower(password);
-        if(length >=8 && containsNumber && containUpAndLow){
-            Message = "Passwort akzeptiert.";
-        }else if (length >=8 && containsNumber && !containUpAndLow) {
-            Message = "Fehlende Groß- und Kleinschreibung im Passwort.";
-        }else if (length >= 8 && !containsNumber && containUpAndLow) {
-            Message = "Fehlende Zahl im Passwort.";
-        }else if (length >=8 && !containsNumber && !containUpAndLow) {
-            Message = "Fehlende Zahl,  Groß- und Kleinschreibung im Passwort.";
+
+        if(isPasswordBanned){
+            Message = "Passwort verboten.";
         }else{
-            Message = "Passwort zu kurz!";
+            if(length >=8 && containsNumber && containUpAndLow){
+                Message = "Passwort akzeptiert.";
+            }else if (length >=8 && containsNumber && !containUpAndLow) {
+                Message = "Fehlende Groß- und Kleinschreibung im Passwort.";
+            }else if (length >= 8 && !containsNumber && containUpAndLow) {
+                Message = "Fehlende Zahl im Passwort.";
+            }else if (length >=8 && !containsNumber && !containUpAndLow) {
+                Message = "Fehlende Zahl,  Groß- und Kleinschreibung im Passwort.";
+            }else{
+                Message = "Passwort zu kurz!";
+            }
         }
         return Message;
     }
@@ -42,7 +53,6 @@ public class Passwortvalidierung {
     }
 
     public static boolean checkUpperLower(String password){
-        boolean containUpAndLow;
         boolean containUp = true;
         boolean containLow = true;
         char[] c = password.toCharArray();
@@ -63,11 +73,16 @@ public class Passwortvalidierung {
                 containLow = false;
             }
         }
-        if(containLow && containUp){
-            containUpAndLow = true;
-        }else{
-            containUpAndLow = false;
-        }
-        return containUpAndLow;
+        return containLow && containUp;
+    }
+
+    public static boolean isPasswordBanned(String password){
+        ArrayList<String> BannedPasswords = new ArrayList<>();
+        BannedPasswords.add("Password1");
+        BannedPasswords.add("Password2");
+        BannedPasswords.add("ABcd1234");
+        BannedPasswords.add("Ab123456");
+
+        return BannedPasswords.contains(password);
     }
 }
