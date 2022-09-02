@@ -20,19 +20,73 @@ public class PasswortvalidierungTest {
         // GIVEN
         String password = "password1";
         // WHEN
-        String actual = Passwortvalidierung.checkLength(password);
+        String actual = Passwortvalidierung.checkPassword(password);
 
         // THEN
-        assertEquals("Passwort akzeptiert", actual);
+        assertEquals("Passwort akzeptiert.", actual);
+    }
+    @Test
+    void checkLengthTestForLonger8AndNoNumber(){
+        // GIVEN
+        String password = "password";
+        // WHEN
+        String actual = Passwortvalidierung.checkPassword(password);
+
+        // THEN
+        assertEquals("Fehlende Zahl im Passwort.", actual);
     }
     @Test
     void checkLengthTestForShorter8(){
         // GIVEN
-        String password = "pass";
+        String password = "pass123";
         // WHEN
-        String actual = Passwortvalidierung.checkLength(password);
+        String actual = Passwortvalidierung.checkPassword(password);
 
         // THEN
         assertEquals("Passwort zu kurz!", actual);
     }
+
+    @Test
+    void checkLengthTestForShorter8AndNoNumber(){
+        // GIVEN
+        String password = "pass";
+        // WHEN
+        String actual = Passwortvalidierung.checkPassword(password);
+
+        // THEN
+        assertEquals("Passwort zu kurz!", actual);
+    }
+
+    @Test
+    void checkNumberTestFor0(){
+        // GIVEN
+        String password = "password0";
+        // WHEN
+        boolean actual = Passwortvalidierung.checkNumber(password);
+
+        // THEN
+        assertEquals(true, actual);
+    }
+    @Test
+    void checkNumberTestFor10(){
+        // GIVEN
+        String password = "password10";
+        // WHEN
+        boolean actual = Passwortvalidierung.checkNumber(password);
+
+        // THEN
+        assertEquals(true, actual);
+    }
+    @Test
+    void checkNumberTestForNoNumber(){
+        // GIVEN
+        String password = "password";
+        // WHEN
+        boolean actual = Passwortvalidierung.checkNumber(password);
+
+        // THEN
+        assertEquals(false, actual);
+    }
+
+
 }
