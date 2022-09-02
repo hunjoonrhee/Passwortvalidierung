@@ -16,11 +16,11 @@ public class Passwortvalidierung {
         if(length >=8 && containsNumber && containUpAndLow){
             Message = "Passwort akzeptiert.";
         }else if (length >=8 && containsNumber && !containUpAndLow) {
-            Message = "Fehlende Groß- und Kleinschreibung im Passwort";
+            Message = "Fehlende Groß- und Kleinschreibung im Passwort.";
         }else if (length >= 8 && !containsNumber && containUpAndLow) {
             Message = "Fehlende Zahl im Passwort.";
         }else if (length >=8 && !containsNumber && !containUpAndLow) {
-            Message = "Fehlende Zahl,  Groß- und Kleinschreibung im Passwort";
+            Message = "Fehlende Zahl,  Groß- und Kleinschreibung im Passwort.";
         }else{
             Message = "Passwort zu kurz!";
         }
@@ -39,5 +39,35 @@ public class Passwortvalidierung {
             }
         }
         return containsNumber;
+    }
+
+    public static boolean checkUpperLower(String password){
+        boolean containUpAndLow;
+        boolean containUp = true;
+        boolean containLow = true;
+        char[] c = password.toCharArray();
+        for(int i=0; i<c.length; i++){
+            if(Character.isUpperCase(c[i])){
+                containUp = true;
+                break;
+            }else{
+                containUp = false;
+            }
+        }
+
+        for(int i=0; i<c.length; i++){
+            if(Character.isLowerCase(c[i])){
+                containLow = true;
+                break;
+            }else{
+                containLow = false;
+            }
+        }
+        if(containLow && containUp){
+            containUpAndLow = true;
+        }else{
+            containUpAndLow = false;
+        }
+        return containUpAndLow;
     }
 }

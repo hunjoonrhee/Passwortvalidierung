@@ -16,9 +16,9 @@ public class PasswortvalidierungTest {
     }
 
     @Test
-    void checkLengthTestForLonger8(){
+    void checkPasswordTestForLonger8NumberUpperLower(){
         // GIVEN
-        String password = "password1";
+        String password = "paSsword1";
         // WHEN
         String actual = Passwortvalidierung.checkPassword(password);
 
@@ -26,30 +26,29 @@ public class PasswortvalidierungTest {
         assertEquals("Passwort akzeptiert.", actual);
     }
     @Test
-    void checkLengthTestForLonger8AndNoNumber(){
+    void checkPasswordTestForLonger8NumberNoUpperLower(){
+        // GIVEN
+        String password = "password1";
+        // WHEN
+        String actual = Passwortvalidierung.checkPassword(password);
+
+        // THEN
+        assertEquals("Fehlende Groß- und Kleinschreibung im Passwort.", actual);
+    }
+    @Test
+    void checkPasswordTestForLonger8NoNumberNoUpperLower(){
         // GIVEN
         String password = "password";
         // WHEN
         String actual = Passwortvalidierung.checkPassword(password);
 
         // THEN
-        assertEquals("Fehlende Zahl im Passwort.", actual);
+        assertEquals("Fehlende Zahl,  Groß- und Kleinschreibung im Passwort.", actual);
     }
     @Test
-    void checkLengthTestForShorter8(){
+    void checkPasswordTestForShorter8(){
         // GIVEN
         String password = "pass123";
-        // WHEN
-        String actual = Passwortvalidierung.checkPassword(password);
-
-        // THEN
-        assertEquals("Passwort zu kurz!", actual);
-    }
-
-    @Test
-    void checkLengthTestForShorter8AndNoNumber(){
-        // GIVEN
-        String password = "pass";
         // WHEN
         String actual = Passwortvalidierung.checkPassword(password);
 
@@ -88,5 +87,36 @@ public class PasswortvalidierungTest {
         assertEquals(false, actual);
     }
 
+    @Test
+    void checkUpperLowerTest(){
+        // GIVEN
+        String password = "passWord";
+        // WHEN
+        boolean actual = Passwortvalidierung.checkUpperLower(password);
 
+        // THEN
+        assertEquals(true, actual);
+    }
+
+    @Test
+    void checkUpperLowerTestOnlyUpper(){
+        // GIVEN
+        String password = "PASSWORD";
+        // WHEN
+        boolean actual = Passwortvalidierung.checkUpperLower(password);
+
+        // THEN
+        assertEquals(false, actual);
+    }
+
+    @Test
+    void checkUpperLowerTestOnlyLower(){
+        // GIVEN
+        String password = "password";
+        // WHEN
+        boolean actual = Passwortvalidierung.checkUpperLower(password);
+
+        // THEN
+        assertEquals(false, actual);
+    }
 }
