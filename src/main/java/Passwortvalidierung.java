@@ -13,25 +13,27 @@ public class Passwortvalidierung {
         return length;
     }
 
-    public static String checkPassword(String password){
+    public static String checkPassword(String password) {
         String Message = null;
         boolean isPasswordBanned = isPasswordBanned(password);
         int length = getLength(password);
         boolean containsNumber = checkNumber(password);
         boolean containUpAndLow = checkUpperLower(password);
 
-        if(isPasswordBanned){
+        if (isPasswordBanned) {
             Message = "Passwort verboten.";
-        }else{
-            if(length >=8 && containsNumber && containUpAndLow){
-                Message = "Passwort akzeptiert.";
-            }else if (length >=8 && containsNumber && !containUpAndLow) {
-                Message = "Fehlende Groß- und Kleinschreibung im Passwort.";
-            }else if (length >= 8 && !containsNumber && containUpAndLow) {
-                Message = "Fehlende Zahl im Passwort.";
-            }else if (length >=8 && !containsNumber && !containUpAndLow) {
-                Message = "Fehlende Zahl,  Groß- und Kleinschreibung im Passwort.";
-            }else{
+        } else {
+            if (length >= 8) {
+                if (containsNumber && containUpAndLow) {
+                    Message = "Passwort akzeptiert.";
+                } else if (containsNumber && !containUpAndLow) {
+                    Message = "Fehlende Groß- und Kleinschreibung im Passwort.";
+                } else if (!containsNumber && containUpAndLow) {
+                    Message = "Fehlende Zahl im Passwort.";
+                } else if (!containsNumber && !containUpAndLow) {
+                    Message = "Fehlende Zahl,  Groß- und Kleinschreibung im Passwort.";
+                }
+            } else {
                 Message = "Passwort zu kurz!";
             }
         }
